@@ -27,6 +27,7 @@ const Home = () => {
     navigate(`/recipeDetails/${recipeId}`);
   };
 
+  // פונקציה להורדת המתכונים מהשרת
   const handleLikeRecipe = async (recipeId: string) => {
     try {
       const updatedRecipes = recipes.map((recipe) => {
