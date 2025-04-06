@@ -1,0 +1,44 @@
+html,
+body {
+  overflow-x: hidden; /* מונע גלילה אופקית */
+  position: relative; /* לפעמים נדרש לפתרון מלא */
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --primary-color: #ff6b6b;
+  --primary-hover: #ff5252;
+  --primary-light: #fff0f0; /* הוספה עבור רקעים בהירים */
+  --text-color: #333;
+  --light-text: #666;
+  --light-bg: #f9f9f9;
+  --border-color: #eee;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.15);
+  --border-radius: 8px;
+  --transition: all 0.3s;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}

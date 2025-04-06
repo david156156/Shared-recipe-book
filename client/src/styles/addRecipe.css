@@ -1,0 +1,33 @@
+/* .add-recipe-container {
+} */
+.ingredient-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.instruction-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.add-btn {
+  background-color: #cbe9cc;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: #a3ffb5;
+}
+
+.remove-btn {
+  background-color: #facccc;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.remove-btn:hover {
+  background-color: #f5a3a3;
+}

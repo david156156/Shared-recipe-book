@@ -1,0 +1,90 @@
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1504674900247-0877df9cc836");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 2rem 2rem;
+  text-align: center;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content {
+  font-size: 1.2rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-items: center; /* ממרכז את הכרטיסים */
+  align-items: start; /* מוודא שהכרטיסים מתחילים מלמעלה */
+}
+
+.add-recipe-button {
+  background-color: #e47883;
+  color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  bottom: 200px;
+  position: fixed;
+}
+
+.add-recipe-button:hover {
+  background-color: #e4667d;
+  transform: scale(1.15);
+  transition: 0.2s;
+}
+.add-recipe-button i {
+  font-size: 1.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.add-recipe-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-recipe-modal-content {
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  width: 400px;
+  background-color: var(--light-bg);
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 1001;
+}
+@media (max-width: 768px) {
+  .main-content {
+    margin: 0 10px;
+  }
+
+  .add-recipe-button {
+    bottom: 150px;
+    right: 10px;
+  }
+
+  .add-recipe-modal-content {
+    width: 80vw;
+  }
+}

@@ -1,0 +1,33 @@
+.login-form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 1rem;
+  color: #333;
+  appearance: none;
+}
+
+/* עיצוב בזמן מעבר עכבר */
+.login-form-group select:hover {
+  border-color: #aaa;
+}
+
+/* עיצוב בזמן מיקוד */
+.login-form-group select:focus {
+  outline: none;
+  border-color: #e47883;
+}
+
+/* עיצוב לאפשרויות בתוך תיבת הבחירה */
+.login-form-group select option {
+  padding: 10px;
+  background-color: white;
+  color: #333;
+}
+
+/* עיצוב לאפשרות הראשונה (placeholder) */
+.login-form-group select option:first-child {
+  color: #888;
+}
