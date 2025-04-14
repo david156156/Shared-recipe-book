@@ -26,10 +26,6 @@ const authSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  likes: {
-    type: [String],
-    default: [],
-  },
 });
 
 module.exports = mongoose.model("user", authSchema);

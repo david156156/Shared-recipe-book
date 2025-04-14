@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAllRecipes } from "../services/recipeService";
+import { getAllRecipes, likeRecipe } from "../services/recipeService";
+import { useUser } from "./userContext";
+import { useNavigate } from "react-router-dom";
 
 interface Recipe {
   _id?: string;
@@ -9,7 +11,7 @@ interface Recipe {
   image?: string;
   dairyMeatType: string;
   mealType?: string[];
-  likes?: number;
+  likes?: string[];
 }
 
 interface RecipesContextType {
@@ -19,6 +21,8 @@ interface RecipesContextType {
   setRefreshed: (refreshed: boolean) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  handleRecipeClick: (recipeId: string) => void;
+  handleLikeRecipe: (recipeId: string) => void;
 }
 
 const RecipesContext = createContext<RecipesContextType | undefined>(undefined);
@@ -26,9 +30,40 @@ const RecipesContext = createContext<RecipesContextType | undefined>(undefined);
 export const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { user } = useUser();
+  const navigate = useNavigate();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [refreshed, setRefreshed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const handleRecipeClick = (recipeId: string) => {
+    navigate(`/recipeDetails/${recipeId}`);
+  };
+
+  const handleLikeRecipe = async (recipeId: string) => {
+    if (!user) {
+      alert("אנא התחבר כדי לשמור מתכון");
+      return;
+    }
+    try {
+      const updatedRecipes = recipes.map((recipe) => {
+        if (recipe._id === recipeId) {
+          return {
+            ...recipe,
+            likes: recipe.likes?.includes(user._id)
+              ? recipe.likes?.filter((id) => id !== user._id)
+              : [...(recipe.likes || []), user._id],
+          };
+        }
+        return recipe;
+      });
+      setRecipes(updatedRecipes);
+
+      await likeRecipe(recipeId);
+    } catch (error) {
+      console.error("Error liking recipe:", error);
+    }
+  };
 
   useEffect(() => {
     getAllRecipes()
@@ -51,6 +86,8 @@ export const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         setRefreshed,
         loading,
         setLoading,
+        handleRecipeClick,
+        handleLikeRecipe,
       }}
     >
       {children}

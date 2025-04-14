@@ -6,6 +6,6 @@ export interface Recipe {
   image?: string;
   dairyMeatType: string;
   mealType?: string[];
-  likes?: number;
+  likes?: string[];
   userId?: string;
 }

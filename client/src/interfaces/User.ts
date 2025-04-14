@@ -3,7 +3,6 @@ export interface User {
   lastName: string;
   email: string;
   password: string;
-  likes?: string[];
 }
 export interface Token {
   _id: string;

@@ -157,7 +157,6 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
           )}
         </div>
 
-        {/* רכיבים */}
         <div className="login-form-group">
           <label>רכיבים:</label>
           <div className="ingredients-container">
@@ -204,7 +203,6 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
             )}
         </div>
 
-        {/* הוראות הכנה */}
         <div className="login-form-group">
           <label>הוראות הכנה:</label>
           <div className="instructions-container">

@@ -26,8 +26,8 @@ const recipeSchema = new mongoose.Schema({
     type: [String],
   },
   likes: {
-    type: Number,
-    default: 0,
+    type: [String],
+    default: [],
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -32,20 +32,11 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link
-              to="/new-recipes"
+              to="/recipes-I-liked"
               className="nav-link"
               onClick={() => setIsMenuOpen(false)}
             >
-              מתכונים חדשים
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/popular-recipes"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              מתכונים פופולריים
+              מתכונים שאהבתי
             </Link>
           </li>
           <li className="nav-item">

@@ -1,41 +1,26 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/index.css";
-import AddRecipe from "./AddRecipe";
-import { likeRecipe } from "../services/recipeService";
+import { FunctionComponent, use } from "react";
 import { useRecipes } from "../context/recipeContext";
+import { useUser } from "../context/userContext";
 
-interface Recipe {
-  _id?: string;
-  title: string;
-  ingredients: string[];
-  instructions: string[];
-  image?: string;
-  dairyMeatType: string;
-  mealType?: string[];
-  likes?: string[];
-}
+interface RecipesILikedProps {}
 
-const Home = () => {
-  const { recipes, loading, handleRecipeClick, handleLikeRecipe } =
-    useRecipes();
-  const [openAddRecipeModal, setOpenAddRecipeModal] = useState(false);
+const RecipesILiked: FunctionComponent<RecipesILikedProps> = () => {
+  const { recipes, handleRecipeClick, handleLikeRecipe } = useRecipes();
+  const { user } = useUser();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const likedRecipes = recipes.filter((recipe) =>
+    recipe.likes?.includes(user?._id || "")
+  );
   return (
     <>
       <div className="recipes-container">
         <section className="hero-section">
           <div className="hero-content">
-            <h1>ברוכים הבאים לספר המתכונים המשותף</h1>
-            <p>גלו מתכונים חדשים והוסיפו את המתכונים האהובים עליכם</p>
+            <h1>מתכונים שאהבתי</h1>
           </div>
         </section>
-
         <div className="main-content">
-          {recipes.map((recipe) => (
+          {likedRecipes.map((recipe) => (
             <div key={recipe._id} className="card">
               <img
                 onClick={() => handleRecipeClick(recipe._id || "")}
@@ -65,28 +50,9 @@ const Home = () => {
             </div>
           ))}
         </div>
-
-        <div
-          className="add-recipe-button"
-          onClick={() => setOpenAddRecipeModal(true)}
-        >
-          <i className="fa-solid fa-plus"></i>
-        </div>
-
-        {openAddRecipeModal && (
-          <div>
-            <div
-              className="add-recipe-modal"
-              onClick={() => setOpenAddRecipeModal(false)}
-            ></div>
-            <div className="add-recipe-modal-content">
-              <AddRecipe onClose={() => setOpenAddRecipeModal(false)} />
-            </div>
-          </div>
-        )}
       </div>
     </>
   );
 };
 
-export default Home;
+export default RecipesILiked;

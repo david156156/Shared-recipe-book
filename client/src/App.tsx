@@ -14,19 +14,21 @@ import { RecipesProvider } from "./context/recipeContext";
 import RecipeDetails from "./components/RecipeDetails";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import RecipesILiked from "./components/RecipesILiked";
 
 function App() {
   return (
     <div className="App">
-      <UserProvider>
-        <RecipesProvider>
-          <Router>
+      <Router>
+        <UserProvider>
+          <RecipesProvider>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/recipes" element={<Recipes />} />
+              <Route path="/recipes-I-liked" element={<RecipesILiked />} />
               <Route path="/profile" element={<Profile />} />
               <Route
                 path="/recipeDetails/:recipeId"
@@ -35,9 +37,9 @@ function App() {
               <Route path="/about" element={<About />} />
             </Routes>
             <Footer />
-          </Router>
-        </RecipesProvider>
-      </UserProvider>
+          </RecipesProvider>
+        </UserProvider>
+      </Router>
     </div>
   );
 }

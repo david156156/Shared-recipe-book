@@ -120,16 +120,12 @@ router.patch("/like/:recipeId", auth, async (req, res) => {
     const recipe = await Recipe.findById(req.params.recipeId);
     if (!recipe) return res.status(404).send("Recipe not found");
 
-    if (!user.likes.includes(req.params.recipeId)) {
-      user.likes.push(req.params.recipeId);
-      await user.save();
-      recipe.likes++;
+    if (!recipe.likes.includes(req.payload._id)) {
+      recipe.likes.push(req.payload._id);
       await recipe.save();
       res.status(200).send("לייק נוסף בהצלחה");
     } else {
-      user.likes = user.likes.filter((id) => id !== req.params.recipeId);
-      await user.save();
-      recipe.likes--;
+      recipe.likes = recipe.likes.filter((id) => id !== req.payload._id);
       await recipe.save();
       res.status(200).send("לייק הוסר בהצלחה");
     }
