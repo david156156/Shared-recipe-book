@@ -11,6 +11,14 @@ const RecipesILiked: FunctionComponent<RecipesILikedProps> = () => {
   const likedRecipes = recipes.filter((recipe) =>
     recipe.likes?.includes(user?._id || "")
   );
+
+  if (!user) {
+    return (
+      <div className="container" style={{ minHeight: "65vh", padding: "2rem" }}>
+        <h1>התחבר או הירשם כדי לגשת למתכונים שאהבת.</h1>
+      </div>
+    );
+  }
   return (
     <>
       <div className="recipes-container">

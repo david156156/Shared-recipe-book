@@ -1,9 +1,6 @@
-/* ייבוא קבצי CSS */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css";
 @import "base.css";
 @import "home.css";
-/* @import "accordion.css";
-@import "carousel.css"; */
 @import "recipe-card.css";
 @import "navbar.css";
 @import "Login form.css";

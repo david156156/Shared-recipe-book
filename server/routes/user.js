@@ -81,7 +81,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Get all users
 router.get("/", async (req, res) => {
   try {
     const users = await User.find().select("name");
@@ -91,7 +90,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get current user profile
 router.get("/me", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select({
@@ -105,7 +103,6 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
-// Update user profile
 router.put("/me", auth, async (req, res) => {
   try {
     const updateSchema = joi.object({
@@ -127,7 +124,6 @@ router.put("/me", auth, async (req, res) => {
   }
 });
 
-// Delete user account
 router.delete("/me", auth, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.user._id);
@@ -138,7 +134,6 @@ router.delete("/me", auth, async (req, res) => {
   }
 });
 
-// Delete user by ID (Admin only)
 router.delete("/:userId", auth, async (req, res) => {
   try {
     const requestingUser = await User.findById(req.user._id);

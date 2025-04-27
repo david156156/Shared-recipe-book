@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Token, User } from "../interfaces/User";
+import { Token } from "../interfaces/User";
 import { jwtDecode } from "jwt-decode";
 
 interface UserContextType {

@@ -37,7 +37,6 @@ const Login: FunctionComponent<LoginProps> = () => {
         setToken(response);
         alert("ההתחברות בוצעה בהצלחה");
         navigate("/");
-        console.log(response);
       } catch (error) {
         alert("login failed");
       }

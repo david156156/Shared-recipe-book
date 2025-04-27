@@ -1,11 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import Recipes from "./components/Recipes";
-import AddRecipe from "./components/AddRecipe";
-import Profile from "./components/Profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import { UserProvider } from "./context/userContext";
@@ -15,6 +11,7 @@ import RecipeDetails from "./components/RecipeDetails";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import RecipesILiked from "./components/RecipesILiked";
+import MyBook from "./components/MyBook";
 
 function App() {
   return (
@@ -27,9 +24,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/recipes" element={<Recipes />} />
               <Route path="/recipes-I-liked" element={<RecipesILiked />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/my-book" element={<MyBook />} />
               <Route
                 path="/recipeDetails/:recipeId"
                 element={<RecipeDetails />}

@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/me-book" className="navbar-logo">
+        <Link to="/my-book" className="navbar-logo">
           ספר המתכונים האישי
         </Link>
 
@@ -46,24 +46,6 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               אודות
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/add-recipe"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              הוסף מתכון
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/profile"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              פרופיל
             </Link>
           </li>
           <li className="nav-item">

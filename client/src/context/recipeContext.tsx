@@ -12,6 +12,7 @@ interface Recipe {
   dairyMeatType: string;
   mealType?: string[];
   likes?: string[];
+  userId?: string;
 }
 
 interface RecipesContextType {
@@ -23,6 +24,8 @@ interface RecipesContextType {
   setLoading: (loading: boolean) => void;
   handleRecipeClick: (recipeId: string) => void;
   handleLikeRecipe: (recipeId: string) => void;
+  openAddRecipeModal: boolean;
+  setOpenAddRecipeModal: (open: boolean) => void;
 }
 
 const RecipesContext = createContext<RecipesContextType | undefined>(undefined);
@@ -35,6 +38,7 @@ export const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [refreshed, setRefreshed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [openAddRecipeModal, setOpenAddRecipeModal] = useState(false);
 
   const handleRecipeClick = (recipeId: string) => {
     navigate(`/recipeDetails/${recipeId}`);
@@ -88,6 +92,8 @@ export const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         setLoading,
         handleRecipeClick,
         handleLikeRecipe,
+        openAddRecipeModal,
+        setOpenAddRecipeModal,
       }}
     >
       {children}

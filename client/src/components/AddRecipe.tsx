@@ -1,6 +1,6 @@
-import { FieldArray, FormikProvider, useFormik } from "formik";
-import { useState, useEffect, useRef, FunctionComponent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useState, FunctionComponent } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import "../styles/index.css";
 import { createRecipe } from "../services/recipeService";
@@ -45,10 +45,8 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
     }),
     validateOnBlur: true,
     onSubmit: async (values: Recipe) => {
-      console.log(values);
       try {
         const response = await createRecipe(values);
-        console.log(response);
         setRefreshed(!refreshed);
         alert("המתכון נוסף בהצלחה");
         onClose();
@@ -61,14 +59,11 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
     },
   });
 
-  // פונקציות לניהול מערך הרכיבים
   const handleIngredientChange = (index: number, value: string) => {
-    // עדכון מצב המערך הלוקאלי
     const updatedIngredients = [...ingredients];
     updatedIngredients[index] = value;
     setIngredients(updatedIngredients);
 
-    // עדכון ערכי הטופס
     formik.setFieldValue("ingredients", updatedIngredients);
   };
 
@@ -79,7 +74,6 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
   };
 
   const removeIngredient = (index: number) => {
-    // מונע מחיקת הרכיב האחרון
     if (ingredients.length <= 1) return;
 
     const updatedIngredients = [...ingredients];
@@ -88,14 +82,11 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
     formik.setFieldValue("ingredients", updatedIngredients);
   };
 
-  // פונקציות לניהול מערך הוראות ההכנה
   const handleInstructionChange = (index: number, value: string) => {
-    // עדכון מצב המערך הלוקאלי
     const updatedInstructions = [...instructions];
     updatedInstructions[index] = value;
     setInstructions(updatedInstructions);
 
-    // עדכון ערכי הטופס
     formik.setFieldValue("instructions", updatedInstructions);
   };
 
@@ -106,7 +97,6 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
   };
 
   const removeInstruction = (index: number) => {
-    // מונע מחיקת ההוראה האחרונה
     if (instructions.length <= 1) return;
 
     const updatedInstructions = [...instructions];
@@ -247,6 +237,30 @@ const AddRecipe: FunctionComponent<AddRecipeProps> = ({ onClose }) => {
             typeof formik.errors.instructions === "string" && (
               <div className="error-message">{formik.errors.instructions}</div>
             )}
+        </div>
+
+        <div className="login-form-group">
+          <label htmlFor="mealType">סוגי מנות (הפרד בפסיקים)</label>
+          <input
+            type="text"
+            id="mealType"
+            name="mealType"
+            onChange={(e) => {
+              const mealTypesArray = e.target.value
+                .split(",")
+                .map((item) => item.trim());
+              formik.setFieldValue("mealType", mealTypesArray);
+            }}
+            onBlur={formik.handleBlur}
+            value={
+              Array.isArray(formik.values.mealType)
+                ? formik.values.mealType.join(", ")
+                : ""
+            }
+          />
+          {formik.touched.mealType && formik.errors.mealType && (
+            <div className="login-error">{formik.errors.mealType}</div>
+          )}
         </div>
 
         <div className="login-form-group">

@@ -14,7 +14,6 @@ const RecipeDetails: FunctionComponent<RecipeDetailsProps> = () => {
       try {
         const response = await getRecipeById(recipeId!);
         setRecipe(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching recipe details:", error);
       }

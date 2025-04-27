@@ -1,25 +1,51 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/index.css";
 import AddRecipe from "./AddRecipe";
-import { likeRecipe } from "../services/recipeService";
 import { useRecipes } from "../context/recipeContext";
+import { useUser } from "../context/userContext";
 
-interface Recipe {
-  _id?: string;
-  title: string;
-  ingredients: string[];
-  instructions: string[];
-  image?: string;
-  dairyMeatType: string;
-  mealType?: string[];
-  likes?: string[];
-}
+interface Recipe {}
 
 const Home = () => {
-  const { recipes, loading, handleRecipeClick, handleLikeRecipe } =
-    useRecipes();
-  const [openAddRecipeModal, setOpenAddRecipeModal] = useState(false);
+  const {
+    recipes,
+    loading,
+    handleRecipeClick,
+    handleLikeRecipe,
+    openAddRecipeModal,
+    setOpenAddRecipeModal,
+  } = useRecipes();
+  const { user } = useUser();
+  const [search, setSearch] = useState("");
+  const [selectedMealType, setSelectedMealType] = useState("");
+  const [selectedDishType, setSelectedDishType] = useState("");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  const uniqueMealTypes = Array.from(
+    new Set(
+      recipes
+        .flatMap((recipe) => recipe.mealType || [])
+        .filter((mealType) => mealType)
+    )
+  );
+
+  const filteredRecipes = recipes.filter((recipe) => {
+    const matchesSearch = recipe.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesDishType =
+      selectedDishType === "" || recipe.dairyMeatType === selectedDishType;
+    const matchesMealType =
+      selectedMealType === "" ||
+      (recipe.mealType && recipe.mealType.includes(selectedMealType));
+    return matchesSearch && matchesDishType && matchesMealType;
+  });
+
+  const resetFilters = () => {
+    setSearch("");
+    setSelectedMealType("");
+    setSelectedDishType("");
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,8 +60,69 @@ const Home = () => {
           </div>
         </section>
 
-        <div className="main-content">
-          {recipes.map((recipe) => (
+        <div className="search-bar-container">
+          <div className="search-bar-container-row">
+            <input
+              type="text"
+              className="search-bar"
+              placeholder="חפש מתכון..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="search-bar-container-row">
+            <select
+              value={selectedDishType}
+              onChange={(e) => setSelectedDishType(e.target.value)}
+              className="select"
+            >
+              <option value="">סוג מתכון</option>
+              <option value="בשרי">בשרי</option>
+              <option value="חלבי">חלבי</option>
+              <option value="פרווה">פרווה</option>
+            </select>
+            <select
+              value={selectedMealType}
+              onChange={(e) => setSelectedMealType(e.target.value)}
+              className="select"
+            >
+              <option value="">סוג ארוחה</option>
+              {uniqueMealTypes.map((mealType) => (
+                <option key={mealType} value={mealType}>
+                  {mealType}
+                </option>
+              ))}
+            </select>
+
+            <button onClick={resetFilters} className="filter-reset-btn">
+              איפוס סינון
+            </button>
+
+            <div className="view-options">
+              <button
+                className={`view-btn ${viewMode === "grid" ? "active" : ""}`}
+                onClick={() => setViewMode("grid")}
+                aria-label="תצוגת רשת"
+              >
+                <i className="fa-solid fa-th"></i>
+              </button>
+              <button
+                className={`view-btn ${viewMode === "list" ? "active" : ""}`}
+                onClick={() => setViewMode("list")}
+                aria-label="תצוגת רשימה"
+              >
+                <i className="fa-solid fa-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`main-content ${
+            viewMode === "list" ? "list-view" : "grid-view"
+          }`}
+        >
+          {filteredRecipes.map((recipe) => (
             <div key={recipe._id} className="card">
               <img
                 onClick={() => handleRecipeClick(recipe._id || "")}
@@ -65,13 +152,14 @@ const Home = () => {
             </div>
           ))}
         </div>
-
-        <div
-          className="add-recipe-button"
-          onClick={() => setOpenAddRecipeModal(true)}
-        >
-          <i className="fa-solid fa-plus"></i>
-        </div>
+        {user && (
+          <div
+            className="add-recipe-button"
+            onClick={() => setOpenAddRecipeModal(true)}
+          >
+            <i className="fa-solid fa-plus"></i>
+          </div>
+        )}
 
         {openAddRecipeModal && (
           <div>

@@ -33,7 +33,6 @@ router.get("/:recipeId", async (req, res) => {
   }
 });
 
-//get all recipes by user
 router.get("/:userId", auth, async (req, res) => {
   try {
     const recipes = await Recipe.find({ userId: req.params.userId });
@@ -44,7 +43,6 @@ router.get("/:userId", auth, async (req, res) => {
   }
 });
 
-//Get all recipes by user who liked them
 router.get("/liked/:userId", auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
@@ -59,7 +57,6 @@ router.get("/liked/:userId", auth, async (req, res) => {
   }
 });
 
-//add recipe
 router.post("/", auth, async (req, res) => {
   try {
     const { error } = recipeSchema.validate(req.body);

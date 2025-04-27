@@ -44,6 +44,13 @@ const Footer: FunctionComponent<FooterProps> = () => {
           <p>© 2025 כל הזכויות שמורות. ספר המתכונים המשותף.</p>
         </div>
       </div>
+      <div className="footer-logo">
+        <img
+          src="https://chef-lavan.co.il/wp-content/uploads/2023/08/1-52-14_ICON_SHEF_white_130x130_3.png"
+          alt=""
+        />
+        <h5>dyhs1991@gmail.com</h5>
+      </div>
     </footer>
   );
 };

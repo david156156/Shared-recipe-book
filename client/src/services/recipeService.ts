@@ -11,7 +11,6 @@ export function getRecipeById(RecipeId: string) {
   return axios.get(`${api}/${RecipeId}`);
 }
 
-//get all recipes by user
 export function getRecipesByUser(userId: string) {
   const token = localStorage.getItem("token");
   return axios.get(`${api}/${userId}`, {
@@ -21,7 +20,6 @@ export function getRecipesByUser(userId: string) {
   });
 }
 
-//Get all recipes by user who liked them
 export function getRecipesByUserLike(userId: string) {
   const token = localStorage.getItem("token");
   return axios.get(`${api}/like/${userId}`, {
@@ -40,9 +38,9 @@ export function createRecipe(recipe: Recipe) {
   });
 }
 
-export function updateRecipe(recipe: Recipe) {
+export function updateRecipe(recipe: Recipe, recipeId: string) {
   const token = localStorage.getItem("token");
-  return axios.put(`${api}/${recipe._id}`, recipe, {
+  return axios.put(`${api}/${recipeId}`, recipe, {
     headers: {
       Authorization: token,
     },

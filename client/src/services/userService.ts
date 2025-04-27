@@ -24,8 +24,3 @@ export const login = async (user: loginUser) => {
     throw error;
   }
 };
-
-// export const logout = () => {
-//   localStorage.removeItem("token");
-//   window.location.reload();
-// };
