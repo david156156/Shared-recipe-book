@@ -19,6 +19,14 @@ const RecipesILiked: FunctionComponent<RecipesILikedProps> = () => {
       </div>
     );
   }
+
+  if (likedRecipes.length === 0) {
+    return (
+      <div className="container" style={{ minHeight: "65vh", padding: "2rem" }}>
+        <h1>לא מצאתי מתכונים שאהבת.</h1>
+      </div>
+    );
+  }
   return (
     <>
       <div className="recipes-container">
